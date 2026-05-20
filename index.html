@@ -37,7 +37,7 @@
         </nav>
 
         <div class="header-actions">
-          <a class="btn btn-ghost" href="https://anuragbojja.github.io/Resume/" target="_blank" rel="noopener">Resume</a>
+          <span id="resume-link-desktop"></span>
           <button class="menu-btn" aria-label="Toggle menu" aria-expanded="false">
             <span></span><span></span><span></span>
           </button>
@@ -51,7 +51,7 @@
         <a href="#projects">Projects</a>
         <a href="#skills">Skills</a>
         <a href="#contact">Contact</a>
-        <a href="https://anuragbojja.github.io/Resume/" target="_blank" rel="noopener">Resume</a>
+        <span id="resume-link-mobile"></span>
       </div>
     </header>
 
@@ -691,5 +691,11 @@
     </footer>
 
     <script src="./script.js"></script>
+    <script>
+      // DRY: Single source for Resume link
+      const resumeLinkHTML = '<a class="btn btn-ghost" href="https://anuragbojja.github.io/Resume/" target="_blank" rel="noopener">Resume</a>';
+      document.getElementById('resume-link-desktop').innerHTML = resumeLinkHTML;
+      document.getElementById('resume-link-mobile').innerHTML = resumeLinkHTML.replace('btn btn-ghost', '');
+    </script>
   </body>
 </html>
