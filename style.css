@@ -566,7 +566,7 @@ p{ margin:0 0 var(--s16); }
   display:flex;
   flex-direction:column;
   overflow:hidden;
-  min-height: 560px; /* equal feel */
+  min-height: 560px;
 }
 .project-img{
   height: 180px;
@@ -841,3 +841,16 @@ code {
   padding: 1px 5px;
   color: var(--p3);
 }
+
+/* =========================
+   Project Tags (smaller)
+   ========================= */
+.project .tag {
+  font-size: 11px;
+  padding: 4px 8px;
+}
+
+.project .tag-row {
+  gap: 6px;
+}
+
