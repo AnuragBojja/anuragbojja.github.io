@@ -226,25 +226,25 @@
               <div class="timeline-card card">
                 <div class="timeline-top">
                   <div>
-                    <h3 class="timeline-role">Data Analyst &amp; Research Intern</h3>
+                    <h3 class="timeline-role">Software Engineer Intern</h3>
                     <p class="timeline-org">Eco Servants · California, USA</p>
                   </div>
-                  <span class="timeline-date">Nov 2025 – Present</span>
+                  <span class="timeline-date">Nov 2025 – Jun 2026</span>
                 </div>
 
                 <ul class="bullets">
-                  <li>Analyzed public engagement and audience response data from social media campaigns, paid advertisements, and outreach channels, surfacing performance trends and engagement patterns through reporting dashboards to guide future campaign strategy.</li>
-                  <li>Contributed to backend API development across Python, Java, and PHP services, implementing endpoints and data-processing scripts that connected environmental datasets to internal dashboards and the broader CSR platform.</li>
-                  <li>Integrated GitHub Copilot into the development workflow while maintaining strict code-review discipline, ensuring every AI-assisted output is reviewed, validated, and owned before it ships.</li>
+                  <li>Developed and maintained backend APIs across Python, Java, and PHP services, implementing endpoints that integrated environmental datasets with internal dashboards and improved data availability across the CSR platform.</li>
+                  <li>Debugged application defects across development and production environments through structured log analysis and execution tracing, reducing recurring failure patterns and improving overall service stability.</li>
+                  <li>Contributed to CI/CD workflow maintenance, supporting automated build and deployment across multiple services and enabling faster, more consistent release cycles across the engineering team.</li>
                 </ul>
 
                 <div class="tag-row">
                   <span class="tag">Python</span>
                   <span class="tag">Java</span>
                   <span class="tag">PHP</span>
-                  <span class="tag">Data Analytics</span>
                   <span class="tag">API Development</span>
-                  <span class="tag">GitHub Copilot</span>
+                  <span class="tag">CI/CD</span>
+                  <span class="tag">Debugging</span>
                 </div>
               </div>
             </article>
@@ -342,25 +342,34 @@
                 <div class="project-badge">Infrastructure as Code</div>
                 <h3>Production Microservices Infrastructure (10-Layer IaC Architecture)</h3>
                 <p class="project-desc">
-                  Architected a fully automated, zero-touch production environment across 10 independently managed infrastructure layers,
-                  where each layer is isolated with its own remote state — eliminating cross-layer dependencies and enabling teams to modify
-                  any layer without risk to the rest of the system.
+                  A fully automated, production-grade AWS environment for a 10-service polyglot microservices platform, built from the ground up across 10 independently state-managed Terraform layers. Every component — from the underlying VPC to the CDN distribution at the edge — is defined as code, with configuration management layered on top through Ansible roles.
                 </p>
 
                 <ul class="project-bullets">
-                  <li>Enforced security at the infrastructure level — least-privilege network policies, centralized secrets management with no credentials in code, and TLS encryption at the edge.</li>
-                  <li>Engineered a self-bootstrapping entry point that automatically provisions databases, bakes service images, configures all services, and deploys behind an auto-scaling load-balanced architecture — fully hands-free from first boot to production.</li>
-                  <li>Layered Ansible configuration management on top, where any service deploys through a single parameterized command using Jinja2 templates and runtime secret resolution.</li>
+                  <li>Designed the entire AWS network foundation with production-level isolation, including VPC, public/private subnets across multiple AZs, database-tier subnets, IGW, NAT Gateway, and per-tier route tables.</li>
+                  <li>Provisioned 14 service-specific Security Groups with ingress and egress rules isolated into their own Terraform layer to enforce least-privilege networking and eliminate circular dependencies.</li>
+                  <li>Deployed an OpenVPN server inside the VPC to provide a secure jump point for engineers and CI/CD systems, keeping SSH and internal services off the public internet.</li>
+                  <li>Authored reusable Terraform modules for VPC, Security Groups, and service deployment orchestration, enabling a single parameterized module invocation for all 6 application services.</li>
+                  <li>Implemented public ALB hardening with wildcard ACM TLS 1.3 and a CloudFront distribution for global performance and edge encryption.</li>
+                  <li>Used Ansible roles with Jinja2 templates and AWS SSM Parameter Store lookups so secrets are resolved at runtime and never written to playbooks or version control.</li>
+                  <li>Decoupled cross-layer state through SSM Parameter Store instead of Terraform remote state, allowing independent layer updates without tight coupling.</li>
                 </ul>
 
                 <div class="tag-row">
                   <span class="tag">Terraform</span>
                   <span class="tag">Ansible</span>
-                  <span class="tag">AWS VPC/EC2/ALB/ASG</span>
+                  <span class="tag">AWS</span>
+                  <span class="tag">VPC</span>
+                  <span class="tag">NAT</span>
+                  <span class="tag">Security Groups</span>
+                  <span class="tag">EC2</span>
+                  <span class="tag">ALB</span>
+                  <span class="tag">ASG</span>
                   <span class="tag">CloudFront</span>
-                  <span class="tag">SSM</span>
-                  <span class="tag">Route53</span>
                   <span class="tag">ACM</span>
+                  <span class="tag">OpenVPN</span>
+                  <span class="tag">Route53</span>
+                  <span class="tag">SSM</span>
                   <span class="tag">Jinja2</span>
                 </div>
 
@@ -389,15 +398,16 @@
                 <div class="project-badge">Containers &amp; Orchestration</div>
                 <h3>Containerized Microservices Platform (Kubernetes Orchestration &amp; Helm Packaging)</h3>
                 <p class="project-desc">
-                  Containerized and orchestrated a 10-service polyglot microservices platform end-to-end — from optimized Docker images
-                  through production-grade Kubernetes deployments to reusable Helm charts.
+                  Containerized and orchestrated the same 10-service polyglot microservices platform on Kubernetes — building everything from optimized Docker images through full production-grade manifests to reusable Helm charts. This project represents the container-native evolution of the same workload deployed via Terraform + Ansible, giving a deeper understanding of two fundamentally different deployment paradigms.
                 </p>
 
                 <ul class="project-bullets">
-                  <li>Built optimized Docker images for all 10 services using multi-stage builds, Alpine base images, and non-root user enforcement — eliminating build-time tooling from runtime containers.</li>
-                  <li>Deployed services to a managed Kubernetes cluster using Deployments for stateless workloads, StatefulSets with persistent storage for databases, ConfigMaps for environment-driven configuration, and HPA for traffic-driven scaling.</li>
-                  <li>Implemented security and reliability controls — RBAC with role and role-binding configurations, IRSA-based pod-to-cloud authentication via OIDC, and liveness/readiness probes with appropriate thresholds per service type.</li>
-                  <li>Packaged the entire deployment as reusable Helm charts with values-driven templating, enabling environment-specific deployments without code duplication.</li>
+                  <li>Built optimized Docker images for all 10 services using multi-stage builds on Alpine base images, enforcing non-root execution and minimal runtime layers while resolving image build issues for Python/uWSGI and Alpine-specific packaging paths.</li>
+                  <li>Authored full Kubernetes manifests for Deployments, ClusterIP Services, StatefulSets, headless services, ConfigMaps, HPA, probes, and EBS-backed StorageClass with WaitForFirstConsumer binding to support stateful databases and production workloads.</li>
+                  <li>Configured AWS ALB Ingress Controller resources to expose the platform through a single Application Load Balancer with host- and path-based routing, enabling production-style public traffic handling.</li>
+                  <li>Implemented Kubernetes RBAC with dedicated ServiceAccounts, Roles, ClusterRoles, and bindings, and mapped AWS IAM identities into the cluster using aws-auth to enforce real multi-user platform access control.</li>
+                  <li>Implemented IRSA with the cluster OIDC provider so pods obtain temporary AWS credentials via STS instead of relying on static keys in manifests or images.</li>
+                  <li>Packaged the platform as reusable Helm charts with values-driven templates and chart archetypes for Deployment- and StatefulSet-based services, enabling repeatable installs across environments with a single helm install command.</li>
                 </ul>
 
                 <div class="tag-row">
@@ -405,18 +415,25 @@
                   <span class="tag">Kubernetes</span>
                   <span class="tag">Helm</span>
                   <span class="tag">kubectl</span>
+                  <span class="tag">Alpine Linux</span>
+                  <span class="tag">ConfigMaps</span>
                   <span class="tag">StatefulSets</span>
                   <span class="tag">HPA</span>
+                  <span class="tag">PV/PVC</span>
+                  <span class="tag">StorageClass</span>
                   <span class="tag">RBAC</span>
                   <span class="tag">IRSA/OIDC</span>
+                  <span class="tag">AWS ALB Ingress</span>
                 </div>
 
                 <div class="project-actions">
+                  <a class="btn btn-primary" href="https://github.com/AnuragBojja/docker-files" target="_blank" rel="noopener">Docker Files</a>
                   <a class="btn btn-primary" href="https://github.com/AnuragBojja/docker-compress" target="_blank" rel="noopener">Docker Compress</a>
+                  <a class="btn btn-primary" href="https://github.com/AnuragBojja/kube-roboshop" target="_blank" rel="noopener">Kube Deployments</a>
                   <a class="btn btn-primary" href="https://github.com/AnuragBojja/kube-roboshop-vol" target="_blank" rel="noopener">Kube Stateful+HPA</a>
                   <a class="btn btn-primary" href="https://github.com/AnuragBojja/k8s-HELM-roboshop" target="_blank" rel="noopener">Helm Charts</a>
-                  <a class="btn btn-primary" href="https://github.com/AnuragBojja/k8-rbac" target="_blank" rel="noopener">RBAC</a>
                   <a class="btn btn-primary" href="https://github.com/AnuragBojja/k8-ingress" target="_blank" rel="noopener">Ingress</a>
+                  <a class="btn btn-primary" href="https://github.com/AnuragBojja/k8-rbac" target="_blank" rel="noopener">RBAC</a>
                 </div>
               </div>
             </article>
