@@ -32,7 +32,7 @@ No top header. The bottom island is the only navigation, always visible, on both
 
 **Home · Experience · Projects · Resume · Contact** — plus a theme toggle (sun/moon) as the last island item.
 
-- **Home** is a dashboard of cards (see layout below). It contains the full About Me content (bio, philosophy, how-I-work, education, quick links) directly — About is **not** a separate tab, and Skills is **not** a separate tab. Both live as cards on Home.
+- **Home** is a dashboard of cards (see layout below). It contains the full About Me content (bio, philosophy, how-I-work, education, quick links) directly — About is **not** a separate tab; it lives as a card on Home. **Skills has no dedicated tab or card at all** — skill/tool knowledge is conveyed entirely through the `tags` already attached to each Experience and Project entry, rendered as tag-rows on those two tabs.
 - **Experience**, **Projects**, **Resume**, **Contact** are full tab views, switched via client-side routing (see Architecture).
 
 ## Architecture
@@ -49,9 +49,8 @@ No top header. The bottom island is the only navigation, always visible, on both
 
 - **`profile.json`** — name, title/tagline, location, email, phone, GitHub URL, LinkedIn URL, resume URL, hero lead paragraph, bio paragraph(s), "Engineering Philosophy" blurb, "How I Work" blurb, hero stat facts (years experience, cloud focus, publication).
 - **`education.json`** — array of `{school, degree, dates, location, coursework: []}`.
-- **`experience.json`** — array of `{role, company, location, startDate, endDate, bullets: [], tags: [], featured: bool}`, newest first. The `featured` entry (defaults to index 0) drives the Home "Career Glimpse" card.
-- **`projects.json`** — array of `{title, badge, image, description, bullets: [], tags: [], links: [{label, url}], size: "large"|"medium"|"small", featured: bool}`. `size` drives bento-tile span on the Projects tab; the `featured` entry drives the Home "Architecture Spec" card.
-- **`skills.json`** — array of `{category, tiers: [{label, items: []}]}` — full nested tier data preserved here for future use, even though Home only renders a condensed flat list (see below).
+- **`experience.json`** — array of `{role, company, location, startDate, endDate, bullets: [], tags: [], featured: bool}`, newest first. The `featured` entry (defaults to index 0) drives the Home "Career Glimpse" card. `tags` carries the skills/tools used in that role — again, the only place skills info lives for this entry.
+- **`projects.json`** — array of `{title, badge, image, description, bullets: [], tags: [], links: [{label, url}], size: "large"|"medium"|"small", featured: bool}`. `size` drives bento-tile span on the Projects tab; the `featured` entry drives the Home "Architecture Spec" card. `tags` is also the sole carrier of skills/tools info for this entry — there is no separate skills data file.
 - **`contact.json`** — email, phone, location, socials — reused by the Home "Get in Touch" card and the full Contact tab.
 
 ## Visual Design System
@@ -60,7 +59,7 @@ The reference screenshot is the literal visual target for **both** light and dar
 
 - **Background:** soft near-white (light) with a faint dotted/grain texture; matching deep near-navy (dark).
 - **Cards:** glass surface, ~20–24px radius, soft diffused shadow, thin hairline border — no saturated gradient wash behind them.
-- **Accent:** indigo/violet (kept close to current `#6d28d9`), used for the active-nav pill, small-caps eyebrow labels (`BIO SPECS`, `CAREER GLIMPSE`, `ARCHITECTURE SPEC`, `CORE STACK`, `GET IN TOUCH`), link text, and card icon accents. Existing teal/sky used sparingly as secondary decorative accents (card glows, tags), not a full-page wash.
+- **Accent:** indigo/violet (kept close to current `#6d28d9`), used for the active-nav pill, small-caps eyebrow labels (`BIO SPECS`, `CAREER GLIMPSE`, `ARCHITECTURE SPEC`, `GET IN TOUCH`), link text, and card icon accents. Existing teal/sky used sparingly as secondary decorative accents (card glows, tags), not a full-page wash.
 - **Typography:** Inter throughout (no serif addition — the reference uses bold sans, not editorial serif). Hero headline in heaviest weight (800/900), tagline in medium-weight accent color, section eyebrow labels uppercase/letter-spaced/colored, body text in regular/medium weights.
 - **Icons:** simple line icons (1.5px stroke) for island nav items (home, briefcase, folder, mail, sun/moon) and card corner glyphs, matching the reference's icon style.
 - **Island nav:** pill-shaped, floating, centered at the bottom of the viewport, fixed position, glass background with soft shadow; active tab shown as a filled/tinted pill with a small dot indicator under its label (as in the reference).
@@ -81,8 +80,9 @@ A bento-style card grid (2–3 columns desktop, stacks to 1 column on mobile):
 3. **About Me card** (full-width or 2-column block, sits below hero row): bio paragraph(s), quick-link row (GitHub / LinkedIn / Email / Resume), then three mini sub-cards: **Engineering Philosophy**, **How I Work**, **Education** (school, degree, dates, coursework). This is where "impress the viewer" copy lives — content sourced from `profile.json` + `education.json`, final wording to come from the user's `aboutme.md`.
 4. **Career Glimpse card:** current/featured role + company + date badge + 2-line summary + "Open Career Timeline →" link to the Experience tab.
 5. **Architecture Spec card:** featured project name + 1–2 line summary + "Read Spec Sheets ↗" link to the Projects tab.
-6. **Core Stack card:** condensed flat list of top-tier skill chips across categories (curated highlights, e.g. 8–10 chips), **not** the full nested tier breakdown — the full detail remains in `skills.json` for the data layer even though Home doesn't render all of it (avoids cluttering the dashboard).
-7. **Get In Touch card:** short invite line + "Open Message Form →" link to the Contact tab.
+6. **Get In Touch card:** short invite line + "Open Message Form →" link to the Contact tab.
+
+No Skills/Core Stack card on Home — skills are only ever shown via tag-rows on the Experience and Projects tabs, never aggregated into their own section.
 
 ## Tab Views
 
@@ -109,8 +109,8 @@ A bento-style card grid (2–3 columns desktop, stacks to 1 column on mobile):
 ## Technical / File Plan
 
 - Replace in place: `index.html`, `style.css` → `app.css`, `script.js` → `app.js`. Git history is the safety net (working tree is clean; no parallel `main.*` files needed this time, since this design is already fully approved).
-- New: `/data/profile.json`, `/data/education.json`, `/data/experience.json`, `/data/projects.json`, `/data/skills.json`, `/data/contact.json`.
-- Reuses existing image assets (`profile.jpeg`, `roboshop-*.png`, `food-delivery.png`, `nlp-pipeline.png`, `favicon.svg`) — no new assets required.
+- New: `/data/profile.json`, `/data/education.json`, `/data/experience.json`, `/data/projects.json`, `/data/contact.json`.
+- New: `/assets/` directory — all raster images (`profile.jpeg`, `roboshop-terraform.png`, `roboshop-ansible.png`, `roboshop-shell.png`, `roboshop-k8s.png`, `food-delivery.png`, `nlp-pipeline.png`) move here from the repo root. `favicon.svg` stays at the repo root (standard favicon convention; also not a png/jpg). Every `image` path in `projects.json` and the profile photo reference in `profile.json` point at `./assets/...`.
 - `aboutme.md` (user-authored, at repo root or docs/ — exact location up to the user) is a **content source**, not a deployed file; once available, its content is transcribed into `profile.json`'s bio/philosophy/how-I-work fields.
 - Local testing: serve the folder with a static file server (e.g. `python -m http.server`) and open `index.html` — required because `fetch()` of the JSON files needs `http://`, not `file://`.
 - Deployment: no build step; GitHub Pages serves the static files directly from the repo root once committed.
@@ -118,5 +118,5 @@ A bento-style card grid (2–3 columns desktop, stacks to 1 column on mobile):
 ## Open Items For Implementation
 
 - Exact bento-grid tile proportions (Home dashboard and Projects tab) — tuned visually during implementation.
-- Final curated skill-chip list for the Home "Core Stack" card — pick top ~8–10 across categories during implementation (from existing `skill_grid` content), adjustable once `skills.json` exists.
 - About Me final copy — pending the user's `aboutme.md`; current About content from `index.html` is used as interim placeholder in `profile.json`/`education.json` until then.
+- The current site's standalone "Skills & Expertise" section (5 categories × tiers) has no direct home anymore. During implementation, fold each of those skill tags into the `tags` array of whichever `experience.json`/`projects.json` entry they're actually associated with (e.g. Kubernetes/Helm tags → the K8s project and the DevOps Engineer role), rather than dropping any of them.
