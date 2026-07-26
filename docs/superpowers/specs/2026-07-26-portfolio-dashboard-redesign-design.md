@@ -39,7 +39,7 @@ No top header. The bottom island is the only navigation, always visible, on both
 **Single-page app, hash-routed, client-side rendered from JSON** (approved approach):
 
 - One shell: `index.html` (island nav + empty tab-panel containers) + `app.css` + `app.js`.
-- `app.js` fetches all six `/data/*.json` files in parallel on load, then renders each tab's DOM from templates using that data.
+- `app.js` fetches all five `/data/*.json` files in parallel on load, then renders each tab's DOM from templates using that data.
 - Tabs are `<section>` panels toggled by `location.hash` (`#home`, `#experience`, `#projects`, `#resume`, `#contact`); island links are plain `<a href="#experience">` anchors — back/forward and direct deep-links work.
 - Switching tabs crossfades/slides the panel (opacity + translateY, CSS transition) — instant swap when `prefers-reduced-motion: reduce`.
 - No build step; GitHub Pages serves the static files directly.
