@@ -17,14 +17,13 @@ Stays a dependency-free static site with zero build tooling, deployed as-is to G
 - Light mode by default, user-controlled dark mode toggle (part of the island), persisted in `localStorage`.
 - Fully responsive: desktop and mobile.
 - Keep zero build tooling — plain HTML/CSS/JS, no framework, no bundler, no server.
-- About Me is a **curated pitch**, not a data dump — final bio copy will come from a separate `aboutme.md` the user is authoring; this spec defines where that content lives structurally, not its final wording.
+- About Me is a **curated pitch**, not a data dump — final bio copy comes from `docs/superpowers/specs/portfolio.md` (user-authored content source); this spec defines where that content lives structurally.
 
 ## Non-Goals
 
 - No framework migration (plain HTML/CSS/JS only).
 - No backend/contact-form service — mailto fallback stays.
-- No rewriting of Experience/Projects/Skills copy — that content is carried over as-is into JSON.
-- Not writing the About Me copy itself — placeholder/current copy goes into `profile.json` until the user supplies `aboutme.md`, at which point only that JSON file needs updating.
+- Not writing any content copy — all copy (About, Experience, Education, Projects) is transcribed verbatim (structured into JSON) from the user's `docs/superpowers/specs/portfolio.md`, which supersedes the equivalent copy currently in `index.html`.
 
 ## Information Architecture
 
@@ -32,7 +31,7 @@ No top header. The bottom island is the only navigation, always visible, on both
 
 **Home · Experience · Projects · Resume · Contact** — plus a theme toggle (sun/moon) as the last island item.
 
-- **Home** is a dashboard of cards (see layout below). It contains the full About Me content (bio, philosophy, how-I-work, education, quick links) directly — About is **not** a separate tab; it lives as a card on Home. **Skills has no dedicated tab or card at all** — skill/tool knowledge is conveyed entirely through the `tags` already attached to each Experience and Project entry, rendered as tag-rows on those two tabs.
+- **Home** is a dashboard of cards (see layout below). It contains the full About Me content (bio, focus areas, education, quick links) directly — About is **not** a separate tab; it lives as a card on Home. **Skills has no dedicated tab or card at all** — skill/tool knowledge is conveyed entirely through the `tags` already attached to each Experience and Project entry, rendered as tag-rows on those two tabs.
 - **Experience**, **Projects**, **Resume**, **Contact** are full tab views, switched via client-side routing (see Architecture).
 
 ## Architecture
@@ -47,7 +46,7 @@ No top header. The bottom island is the only navigation, always visible, on both
 
 ## Data Layer (`/data/*.json`)
 
-- **`profile.json`** — name, title/tagline, location, email, phone, GitHub URL, LinkedIn URL, resume URL, hero lead paragraph, bio paragraph(s), "Engineering Philosophy" blurb, "How I Work" blurb, hero stat facts (years experience, cloud focus, publication).
+- **`profile.json`** — name, title/tagline, location, email, phone, GitHub URL, LinkedIn URL, resume URL, "currently seeking" line, hero lead paragraph, bio paragraph(s), "What I'm Focused On" bullet list, hero stat facts (years experience, cloud focus, publication).
 - **`education.json`** — array of `{school, degree, dates, location, coursework: []}`.
 - **`experience.json`** — array of `{role, company, location, startDate, endDate, bullets: [], tags: [], featured: bool}`, newest first. The `featured` entry (defaults to index 0) drives the Home "Career Glimpse" card. `tags` carries the skills/tools used in that role — again, the only place skills info lives for this entry.
 - **`projects.json`** — array of `{title, badge, image, description, bullets: [], tags: [], links: [{label, url}], size: "large"|"medium"|"small", featured: bool}`. `size` drives bento-tile span on the Projects tab; the `featured` entry drives the Home "Architecture Spec" card. `tags` is also the sole carrier of skills/tools info for this entry — there is no separate skills data file.
@@ -77,7 +76,7 @@ A bento-style card grid (2–3 columns desktop, stacks to 1 column on mobile):
 
 1. **Hero card** (large, spans ~2/3 width): eyebrow badge, bold headline (role/title), colored tagline, short lead paragraph, primary CTAs.
 2. **Bio card** (right column): name, email, phone, location — condensed contact block.
-3. **About Me card** (full-width or 2-column block, sits below hero row): bio paragraph(s), quick-link row (GitHub / LinkedIn / Email / Resume), then three mini sub-cards: **Engineering Philosophy**, **How I Work**, **Education** (school, degree, dates, coursework). This is where "impress the viewer" copy lives — content sourced from `profile.json` + `education.json`, final wording to come from the user's `aboutme.md`.
+3. **About Me card** (full-width or 2-column block, sits below hero row): bio paragraph(s), "Currently seeking" line, quick-link row (GitHub / LinkedIn / Email / Resume), then mini sub-cards: **What I'm Focused On**, **Education Glimpse** (school, degree, dates, coursework). This is where "impress the viewer" copy lives — content sourced verbatim from `portfolio.md` into `profile.json` + `education.json`.
 4. **Career Glimpse card:** current/featured role + company + date badge + 2-line summary + "Open Career Timeline →" link to the Experience tab.
 5. **Architecture Spec card:** featured project name + 1–2 line summary + "Read Spec Sheets ↗" link to the Projects tab.
 6. **Get In Touch card:** short invite line + "Open Message Form →" link to the Contact tab.
@@ -87,7 +86,7 @@ No Skills/Core Stack card on Home — skills are only ever shown via tag-rows on
 ## Tab Views
 
 - **Experience:** full timeline, all entries from `experience.json`, scroll-driven progress rail (`IntersectionObserver`, fills via `transform: scaleY()` as user scrolls past each item), cards restyled to the new glass system. Scrolls internally within the tab if content exceeds viewport height.
-- **Projects:** bento grid from `projects.json` — flagship project spans a large 2-column tile, next spans medium, remaining sit as smaller tiles, using each entry's `size` field. Mouse-tracked tilt-on-hover + image zoom on hover (transform-only, rAF-throttled).
+- **Projects:** bento grid from `projects.json` — **3 entries only** (10-Layer IaC Architecture: large; Kubernetes Orchestration & Helm: medium; Multi-Cloud IaaS/PaaS: small), using each entry's `size` field. The NLP/Springer publication is **not** a project tile — it's referenced only via the About Me card and Education sub-card on Home (both already mention it in `portfolio.md`), each linking out to the Springer publication URL. Mouse-tracked tilt-on-hover + image zoom on hover (transform-only, rAF-throttled).
 - **Resume:** embeds `https://anuragbojja.github.io/Resume/` in an `<iframe>` within the tab, with an "Open in new tab" fallback button above it.
 - **Contact:** quick-action buttons (Email / LinkedIn / GitHub) + location line, from `contact.json`; mailto fallback behavior unchanged from current site.
 
@@ -111,12 +110,12 @@ No Skills/Core Stack card on Home — skills are only ever shown via tag-rows on
 - Replace in place: `index.html`, `style.css` → `app.css`, `script.js` → `app.js`. Git history is the safety net (working tree is clean; no parallel `main.*` files needed this time, since this design is already fully approved).
 - New: `/data/profile.json`, `/data/education.json`, `/data/experience.json`, `/data/projects.json`, `/data/contact.json`.
 - New: `/assets/` directory — all raster images (`profile.jpeg`, `roboshop-terraform.png`, `roboshop-ansible.png`, `roboshop-shell.png`, `roboshop-k8s.png`, `food-delivery.png`, `nlp-pipeline.png`) move here from the repo root. `favicon.svg` stays at the repo root (standard favicon convention; also not a png/jpg). Every `image` path in `projects.json` and the profile photo reference in `profile.json` point at `./assets/...`.
-- `aboutme.md` (user-authored, at repo root or docs/ — exact location up to the user) is a **content source**, not a deployed file; once available, its content is transcribed into `profile.json`'s bio/philosophy/how-I-work fields.
+- `docs/superpowers/specs/portfolio.md` (user-authored) is the **content source** for all copy, not a deployed file — its content is transcribed into `profile.json`, `education.json`, `experience.json`, and `projects.json`.
 - Local testing: serve the folder with a static file server (e.g. `python -m http.server`) and open `index.html` — required because `fetch()` of the JSON files needs `http://`, not `file://`.
 - Deployment: no build step; GitHub Pages serves the static files directly from the repo root once committed.
 
 ## Open Items For Implementation
 
 - Exact bento-grid tile proportions (Home dashboard and Projects tab) — tuned visually during implementation.
-- About Me final copy — pending the user's `aboutme.md`; current About content from `index.html` is used as interim placeholder in `profile.json`/`education.json` until then.
-- The current site's standalone "Skills & Expertise" section (5 categories × tiers) has no direct home anymore. During implementation, fold each of those skill tags into the `tags` array of whichever `experience.json`/`projects.json` entry they're actually associated with (e.g. Kubernetes/Helm tags → the K8s project and the DevOps Engineer role), rather than dropping any of them.
+- About Me final copy is now resolved — sourced from `portfolio.md` (supersedes the current `index.html` About content, e.g. new title "DevOps · Cloud · SRE Engineer" replaces "DevSecOps & Cloud Engineer", new phone number, new "currently seeking" line).
+- `portfolio.md`'s "Skills Snapshot" (Cloud & Infrastructure, Security, Containers, CI/CD, Languages, Databases) has no standalone section anymore. During implementation, fold each of those skill tags into the `tags` array of whichever `experience.json`/`projects.json` entry they're actually associated with (e.g. Kubernetes/Helm tags → the K8s project and the DevOps Engineer role; the newer languages like JavaScript/Node.js → wherever they're actually used), rather than dropping any of them.
