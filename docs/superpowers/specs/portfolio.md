@@ -1,90 +1,148 @@
 # Anurag Bojja — Portfolio Content
 
 > Complete content for the redesigned portfolio structure.
-> Sections: About Me → Experience → Education → Projects → Resume
+> **Design Philosophy:** Home page uses a card-grid landing (scannable, not text-heavy). Each card links to its dedicated deep page. Detail lives in Experience/Education/Projects pages — never on the home page.
 
 ---
 
-## 🌐 SECTION 1: ABOUT ME
+## 🏠 SECTION 1: HOME (ABOUT ME) — Card Grid Landing
 
-### Hero Statement (First thing visitors see)
+### Design Rules (Non-Negotiable)
 
-**Anurag Bojja**
-**DevOps · Cloud · SRE Engineer**
-
-I build cloud infrastructure the way it should be built — automated end-to-end, secure by default, and repeatable across environments. My work spans production-grade AWS infrastructure with Terraform, container orchestration with Docker and Kubernetes, and multi-cloud deployment strategies. I believe secure infrastructure isn't a feature added later — it's the foundation everything else stands on.
-
----
-
-### Personal Details
-
-- 📍 **Location:** Los Angeles, CA — open to remote and relocation anywhere in the US
-- 📧 **Email:** anuragbojja23@gmail.com
-- 📱 **Phone:** +1 414-275-9169
-- 🔗 **LinkedIn:** [linkedin.com/in/anurag-bojja-81a405192](https://www.linkedin.com/in/anurag-bojja-81a405192/)
-- 💻 **GitHub:** [github.com/AnuragBojja](https://github.com/AnuragBojja)
-- 🎯 **Currently seeking:** DevOps Engineer · Cloud Engineer · Site Reliability Engineer roles
+- Card-based grid layout — no wall-of-text prose blocks
+- Every card has: uppercase label (11-12px, letter-spacing 0.05em) + outline icon top-right + one bold headline + one short description + CTA
+- Every text block on the home page is ONE sentence maximum
+- Use only 2 font weights: 400 and 500 (never 600/700)
+- Sentence case everywhere — never Title Case
+- Consistent card styling: white surface, 0.5px border, 12px radius, 1.25rem–1.5rem padding
+- All detail goes to dedicated pages — home cards are teasers
 
 ---
 
-### About Me (Short Bio for Landing Impression)
+### Grid Structure (3 rows)
 
-I'm a DevOps and Cloud Engineer with over two years of hands-on experience building, automating, and securing production cloud infrastructure across AWS and Azure. My work isn't about learning tools in isolation — it's about building complete systems from scratch and understanding every layer deeply.
-
-I've architected a 10-layer Terraform infrastructure that provisions an entire AWS production environment from empty account to fully deployed platform with a single command, containerized and orchestrated a 10-service polyglot microservices platform on Kubernetes with real production controls like RBAC, IRSA, and ALB Ingress, and deployed applications across multiple cloud providers to reduce single-vendor risk. Every project I take on, I rebuild myself — because there's no other way to actually understand infrastructure.
-
-Alongside my engineering work, I'm also a **published NLP researcher** — my sentiment analysis pipeline was peer-reviewed and published in **Springer at ICDSAI 2023**, giving me formal experience taking a problem from data collection through model deployment on AWS.
+**Row 1:** Hero card (2/3 width) + Bio Specs card (1/3 width)
+**Row 2:** Career Glimpse card (2/3 width) + Architecture Spec card (1/3 width)
+**Row 3:** Core Stack card (1/2 width) + Get in Touch card (1/2 width)
 
 ---
 
-### What I'm Focused On
+### Card 1 — HERO CARD (Top Left, Biggest)
 
-- Building zero-touch, self-healing cloud infrastructure
-- Container orchestration and Kubernetes production patterns
-- Security-first automation — least-privilege, secrets management, encryption in transit
-- CI/CD pipeline design that scales with team growth
-- Multi-cloud resilience and disaster recovery posture
+**Pill badge (top):** Multi-Cloud Infrastructure
+*(green dot + text on light background, small rounded pill)*
 
----
+**Headline (40px, weight 500, two lines):**
+DevOps &
+Cloud Engineer
 
-### Education Glimpse
+**Colored subline (18px, accent color, weight 500):**
+Multi-cloud specialist — AWS, Azure, GCP
 
-**M.S. Computer Science**
-University of Wisconsin–Milwaukee · Aug 2023 – May 2025
-*Cloud Computing · Cybersecurity · Database Systems · Machine Learning · NLP*
-
-**B.Tech Computer Science**
-Gandhi Institute of Technology and Management (GITAM) · 2019 – 2023
-*Published research @ Springer ICDSAI 2023*
+**Bottom tagline (14px, muted):**
+Automated end-to-end. Secure by default. Repeatable across every cloud.
 
 ---
 
-### Experience Glimpse (Timeline Preview)
+### Card 2 — BIO SPECS (Top Right)
 
-**Software Engineer Intern @ Eco Servants** — *Nov 2025 – Present*
-Backend API development across Python, Java, and PHP · CI/CD workflows · Debugging across environments
+**Label:** BIO SPECS
+**Icon:** User outline
 
-**DevOps Engineer @ Vesonix TechLabs** — *June 2022 – Aug 2023*
-Docker microservices · Kubernetes workloads · AWS infrastructure · CI/CD in GitHub Actions
+**Name (20px, weight 500):** Anurag Bojja
 
-**Software Developer @ Adqura Pvt. Ltd.** — *March 2022 – May 2022*
-Python backend APIs · Automated test suites · Application defect resolution
+**Contact rows (13px each, with icons):**
+- 📧 anuragbojja23@gmail.com
+- 📞 +1 414-275-9169
+- 📍 Los Angeles, CA
+
+---
+
+### Card 3 — CAREER GLIMPSE (Middle Left)
+
+**Label:** CAREER GLIMPSE
+**Icon:** Briefcase outline
+
+**Role headline (16px, weight 500):** Software Engineer Intern
+
+**Monospace tag pill (top right):** Eco Servants · Present
+
+**Description (14px, one sentence):**
+Building backend APIs and cloud infrastructure across AWS, Azure, and GCP — with CI/CD, containerization, and multi-cloud deployment strategy.
+
+**Divider + CTA row:**
+Open Career Timeline → *(links to Experience page)*
 
 ---
 
-### Skills Snapshot
+### Card 4 — ARCHITECTURE SPEC (Middle Right)
 
-**Cloud & Infrastructure:** AWS · Azure · Terraform · Ansible · CloudFormation
-**Security:** IAM Least-Privilege · SSM Secrets · TLS · Network Segmentation · RBAC · IRSA
-**Containers:** Docker · Kubernetes · Helm · Alpine · kubectl
-**CI/CD:** GitHub Actions · AWS CodePipeline · Nginx · Linux · Bash
-**Languages:** Python · Bash · SQL · Java · JavaScript · Node.js
-**Databases:** MySQL · PostgreSQL · MongoDB · Redis · RabbitMQ
+**Label:** ARCHITECTURE SPEC
+**Icon:** Folder outline
+
+**Project headline (16px, weight 500):** 10-Layer Terraform Infra
+
+**Description (13px, one sentence):**
+Zero-touch cloud environment with security embedded at every layer — patterns applied across AWS, Azure, and GCP.
+
+**Divider + CTA row:**
+Read Spec Sheets ↗ *(links to Projects page)*
+
+---
+
+### Card 5 — CORE STACK (Bottom Left)
+
+**Label:** CORE STACK
+**Icon:** CPU outline
+
+**Monospace pills — cloud row first (highlighted), then tools:**
+
+*Row 1 (Cloud — visually emphasized with accent border or slightly different style):*
+- AWS
+- Azure
+- GCP
+
+*Row 2 (Core Tools):*
+- Terraform
+- Kubernetes
+- Docker
+- Ansible
+- Helm
+- CI/CD
+
+*Nothing else. No description. No CTA. Just the pills — cloud row visually separated to make multi-cloud experience unmistakable at a glance.*
+
+---
+
+### Card 6 — GET IN TOUCH (Bottom Right)
+
+**Label:** GET IN TOUCH
+**Icon:** Mail outline
+
+**Description (14px, one sentence):**
+Have a role or system design project in mind? Let's discuss details.
+
+**Divider + CTA row:**
+Open Message Form → *(opens contact form or mailto)*
+
+---
+
+### Navigation (Bottom Floating Bar)
+
+Sticky floating navigation with these icons + labels:
+- 🏠 Home *(active state — accent color background)*
+- 💼 Experience
+- 📁 Projects
+- 📄 Resume
+- 💬 Contact
+- 🌙 Theme toggle
 
 ---
 ---
 
-## 💼 SECTION 2: EXPERIENCE (Full Detail)
+## 💼 SECTION 2: EXPERIENCE PAGE (Full Detail)
+
+*Users land here when they click "Open Career Timeline →" on the home card.*
 
 ---
 
@@ -144,7 +202,7 @@ At Adqura, I worked as a Software Developer on backend API services, contributin
 ---
 ---
 
-## 🎓 SECTION 3: EDUCATION (Full Detail)
+## 🎓 SECTION 3: EDUCATION PAGE (Full Detail)
 
 ---
 
@@ -175,7 +233,7 @@ Completed my undergraduate degree in Computer Science with a focus on programmin
 ---
 ---
 
-## 🚀 SECTION 4: PROJECTS (Full Detail)
+## 🚀 SECTION 4: PROJECTS PAGE (Full Detail)
 
 ---
 
@@ -357,7 +415,7 @@ Neither cloud environment exposes internal services to the public internet. The 
 ---
 ---
 
-## 📄 SECTION 5: RESUME
+## 📄 SECTION 5: RESUME PAGE
 
 Link to downloadable resume (PDF/DOCX):
 - Latest resume: `[Link to hosted resume file]`
@@ -377,4 +435,32 @@ Designed and deployed an end-to-end sentiment classification pipeline for e-comm
 
 ---
 
-*This document contains all portfolio content ready to be used across the redesigned site structure. Every section is written to leave a strong impression while remaining honest and defensible in interviews.*
+## 🎨 GLOBAL DESIGN TOKENS
+
+**Colors:**
+- Surface: white (light) / near-black (dark)
+- Accent: purple-blue (#7F77DD or similar cool tone)
+- Text primary: near-black (light) / near-white (dark)
+- Text secondary: mid-gray
+- Border: 0.5px hairline
+
+**Typography:**
+- Font: Inter or system sans-serif
+- Weights: 400 (regular) and 500 (medium) only
+- Sizes: 40px hero / 20px card headline / 16px section heading / 14px body / 13px description / 11-12px label
+- Sentence case everywhere
+
+**Spacing:**
+- Card padding: 1.25rem – 1.5rem
+- Card gap: 16px
+- Card border radius: 12px
+- Card border: 0.5px solid var(--border)
+
+**Icons:**
+- Style: Outline only (Tabler Icons or Lucide)
+- Size: 14-16px (contact/labels), 18-20px (chevrons/CTAs)
+- Color: muted or accent
+
+---
+
+*This document contains all portfolio content ready to be used across the redesigned site structure. Home = card grid teasers. Detail pages = full depth.*
